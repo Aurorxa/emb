@@ -1,9 +1,8 @@
 import { defineConfig } from 'vitepress'
 import timeline from "vitepress-markdown-timeline"
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
-// import { pagefindPlugin } from 'vitepress-plugin-pagefind'
 import { loadEnv } from 'vite'
-import { pagefind,announcement } from './vite-plugin-config'
+import { pagefind, announcement } from './vite-plugin-config'
 import { pagefindPlugin } from 'vitepress-plugin-pagefind'
 import { AnnouncementPlugin } from 'vitepress-plugin-announcement'
 
