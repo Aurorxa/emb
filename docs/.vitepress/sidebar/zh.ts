@@ -79,29 +79,53 @@ export const zhSidebar: DefaultTheme.Sidebar = {
       ]
     },
     {
-      text: '项目构建工具',
+      text: '硬件电路基础',
       collapsed: true,
       items: [
-        {
-          text: 'meson', collapsed: true, items: [
-            { text: 'meson 入门', link: `/03_build/01_${commonDirectoryName}/` },
-          ]
-        },
-        {
-          text: 'Cmake', collapsed: true, items: [
-            { text: 'Cmake 入门', link: `/03_build/01_${commonDirectoryName}/` },
-          ]
-        },
-        {
-          text: 'Conan', link: '/03_build/01_${commonDirectoryName}/'
-        },
-        {
-          text: 'Gradle', collapsed: true, items: [
-            { text: 'Gradle 入门', link: `/03_build/01_${commonDirectoryName}/` },
-          ]
-        },
+
       ]
     },
-   
+    {
+      text: '从零搭建计算机',
+      collapsed: true,
+      items: [
+
+      ]
+    },
+    {
+      text: '原理图和 PCB 设计',
+      collapsed: true,
+      items: [
+
+      ]
+    },
+    {
+      text: '51 单片机',
+      collapsed: true,
+      items: [
+
+      ]
+    },
+    {
+      text: 'SMT32 单片机',
+      collapsed: true,
+      items: [
+
+      ]
+    },
+    {
+      text: 'FreeRTOS 实时操作系统',
+      collapsed: true,
+      items: [
+
+      ]
+    },
+    {
+      text: 'MQTT',
+      collapsed: true,
+      items: [
+
+      ]
+    },
   ],
 }

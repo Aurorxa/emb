@@ -1,10 +1,18 @@
 import { defineConfig } from 'vitepress'
 import timeline from "vitepress-markdown-timeline"
-import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
+import { groupIconMdPlugin, groupIconVitePlugin, localIconLoader } from 'vitepress-plugin-group-icons'
+import { figure } from '@mdit/plugin-figure'
 import { loadEnv } from 'vite'
-import { pagefind, announcement } from './vite-plugin-config'
+import { pagefind } from './vite-plugin-config'
 import { pagefindPlugin } from 'vitepress-plugin-pagefind'
-import { AnnouncementPlugin } from 'vitepress-plugin-announcement'
+import { withMermaid } from 'vitepress-plugin-mermaid'
+import {
+  GitChangelog,
+  GitChangelogMarkdownSection,
+} from '@nolebase/vitepress-plugin-git-changelog/vite'
+import {
+  InlineLinkPreviewElementTransform
+} from '@nolebase/vitepress-plugin-inline-link-preview/markdown-it'
 
 const mode = process.env.NODE_ENV || 'development'
 const { VITE_BASE_URL } = loadEnv(mode, process.cwd())
@@ -12,7 +20,8 @@ const { VITE_BASE_URL } = loadEnv(mode, process.cwd())
 console.log('Mode:', process.env.NODE_ENV)
 console.log('VITE_BASE_URL:', VITE_BASE_URL)
 
-export const sharedConfig = defineConfig({
+
+export const sharedConfig = withMermaid(defineConfig({
   rewrites: {
     'zh/:rest*': ':rest*'
   },
@@ -34,8 +43,9 @@ export const sharedConfig = defineConfig({
       name: "viewport",
       content: "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,shrink-to-fit=no"
     }],
+    // ['meta', { 'http-equiv': 'Permissions-Policy', content: 'interest-cohort=(), user-id=()' }],
     // 关键词和描述
-    ['meta', { name: "keywords", content: "许大仙" }],
+    ['meta', { name: "keywords", content: "许大仙、Java、C、C++、大数据、前端、云原生、Go、Python" }],
   ],
   appearance: true, // 主题模式，默认浅色且开启切换
   base: VITE_BASE_URL,
@@ -44,13 +54,42 @@ export const sharedConfig = defineConfig({
     build: {
       chunkSizeWarningLimit: 1600
     },
+    ssr: {
+      noExternal: [
+        '@nolebase/vitepress-plugin-enhanced-readabilities',
+        '@nolebase/ui',
+        '@nolebase/vitepress-plugin-highlight-targeted-heading',
+        '@nolebase/vitepress-plugin-inline-link-preview',
+      ],
+    },
+    optimizeDeps: {
+      exclude: [
+        '@nolebase/vitepress-plugin-enhanced-readabilities/client',
+        'vitepress',
+        '@nolebase/vitepress-plugin-inline-link-preview/client',
+      ],
+    },
     plugins: [
-      groupIconVitePlugin(), //代码组图标
+      groupIconVitePlugin({
+        customIcon: {
+          'c': localIconLoader(import.meta.url, '../../public/iconify/c.svg'),
+        }
+      }), //代码组图标
       pagefindPlugin(pagefind),
-      AnnouncementPlugin(announcement)
+      GitChangelog({
+        // 填写在此处填写您的仓库链接
+        repoURL: () => 'https://github.com/Aurorxa/emb',
+      }),
+      GitChangelogMarkdownSection({
+        exclude: (id) => id.endsWith("index.md"),
+        sections: {
+          disableChangelog: true,
+          disableContributors: true,
+        },
+      }),
     ],
     server: {
-      port: 11010
+      port: 10089
     },
     css: {
       preprocessorOptions: {
@@ -93,18 +132,20 @@ export const sharedConfig = defineConfig({
       })
       md.use(timeline)
       md.use(groupIconMdPlugin) //代码组图标
+      md.use(InlineLinkPreviewElementTransform)
+      md.use(figure, { figcaption: 'alt', copyAttrs: '^class$', lazy: true })
     }
   },
   themeConfig: { // 主题设置
     logo: '/logo.svg',  // 左上角logo
     // 编辑链接
     editLink: {
-      pattern: 'https://github.com/Aurorxa/c/edit/master/docs/:path',
+      pattern: 'https://github.com/Aurorxa/emb/edit/master/docs/:path',
       text: 'Edit this page on GitHub'
     },
     //社交链接
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/Aurorxa/c' },
+      { icon: 'github', link: 'https://github.com/Aurorxa/emb' },
     ],
   }
-})
+}))
