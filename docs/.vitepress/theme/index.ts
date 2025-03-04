@@ -10,6 +10,8 @@ import Confetti from "./components/Confetti.vue"
 import TypeIt from "./components/TypeIt.vue"
 import SwitchLayout from './components/SwitchLayout.vue'
 import HomeUnderline from "./components/HomeUnderline.vue"
+import MouseClick from "./components/MouseClick.vue"
+import MouseFollower from "./components/MouseFollower.vue"
 import { NProgress } from 'nprogress-v2/dist/index.js'
 import {
   NolebaseGitChangelogPlugin
@@ -23,17 +25,21 @@ import 'nprogress-v2/dist/index.css'
 import "vitepress-markdown-timeline/dist/theme/index.css"
 import 'virtual:group-icons.css' //代码组样式
 import './style/index.css'
+import xgplayer from "./components/Xgplayer.vue"
 
 export default {
   extends: DefaultTheme,
   Layout() {
     return h(SwitchLayout)
   },
-  enhanceApp({ app, router }) {
+  enhanceApp({ app, router }: EnhanceAppContext) {
     app.component('ArticleMetadata', ArticleMetadata)
-    app.component('confetti', Confetti)
+    app.component('Confetti', Confetti)
     app.component('HomeUnderline', HomeUnderline)
     app.component('TypeIt', TypeIt)
+    app.component('MouseClick', MouseClick) //鼠标跟随组件
+    app.component('MouseFollower', MouseFollower) //鼠标跟随组件
+    app.component('xgplayer', xgplayer) //鼠标跟随组件
     app.use(NolebaseGitChangelogPlugin)
     app.use(NolebaseInlineLinkPreviewPlugin)
     if (inBrowser) {
