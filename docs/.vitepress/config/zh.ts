@@ -24,7 +24,7 @@ export const zhConfig: LocaleSpecificConfig<DefaultTheme.Config> = {
     //大纲顶部标题
     outlineTitle: '当前页大纲',
     editLink: {
-      pattern: 'https://github.com/Aurorxa/c/edit/master/docs/:path',
+      pattern: 'https://github.com/Aurorxa/emb/edit/master/docs/:path',
       text: '在 GitHub 编辑本页'
     },
 
