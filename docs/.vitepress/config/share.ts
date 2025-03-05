@@ -3,8 +3,6 @@ import timeline from "vitepress-markdown-timeline"
 import { groupIconMdPlugin, groupIconVitePlugin, localIconLoader } from 'vitepress-plugin-group-icons'
 import { figure } from '@mdit/plugin-figure'
 import { loadEnv } from 'vite'
-import { pagefind } from './vite-plugin-config'
-import { pagefindPlugin } from 'vitepress-plugin-pagefind'
 import { withMermaid } from 'vitepress-plugin-mermaid'
 import {
   GitChangelog,
@@ -75,7 +73,6 @@ export const sharedConfig = withMermaid(defineConfig({
           'c': localIconLoader(import.meta.url, '../../public/iconify/c.svg'),
         }
       }), //代码组图标
-      pagefindPlugin(pagefind),
       GitChangelog({
         // 填写在此处填写您的仓库链接
         repoURL: () => 'https://github.com/Aurorxa/emb',
